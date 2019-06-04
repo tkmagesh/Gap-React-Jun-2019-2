@@ -15,7 +15,7 @@
 	<script type="text/babel">
 		class Greeter extends React.Component{
 			state = { 
-				message : '[Dummy greet message]',
+				message : '',
 				userName : ''
 			};
 
@@ -35,9 +35,21 @@
 						<label htmlFor="">User Name :</label>
 						<input type="text" onChange={this.onTxtUserNameChange}/>
 						<input type="button" value="Greet" onClick={this.onBtnGreetClick}/>
-						<div className="highlight">{this.state.message}</div>
+						<GreeterMessage data={this.state.message} onClear={ () => this.setState({message : ''})}/>
 					</div>
 				)
+			}
+		}
+
+		class GreeterMessage extends React.Component{
+			render(){
+				let { data, onClear } = this.props;
+				return (
+					<div>
+						{ data ? (<div className="highlight">{data}</div>) : null }
+						<input type="button" value="Clear" onClick={onClear}/>
+					</div>
+				);
 			}
 		}
 
